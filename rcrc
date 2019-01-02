@@ -1,0 +1,4 @@
+DOTFILES_DIRS="$HOME/.dotfiles"
+EXCLUDES="README.md rcrc"
+SYMLINK_DIRS="vim"
+COPY_ALWAYS=""

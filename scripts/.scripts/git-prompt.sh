@@ -1,0 +1,1 @@
+/home/clarence/.dotfiles/scripts/git-prompt.sh

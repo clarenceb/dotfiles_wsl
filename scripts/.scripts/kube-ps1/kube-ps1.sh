@@ -1,0 +1,1 @@
+/home/clarence/.dotfiles/scripts/kube-ps1/kube-ps1.sh

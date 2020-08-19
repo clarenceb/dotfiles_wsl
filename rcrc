@@ -1,4 +1,4 @@
 DOTFILES_DIRS="$HOME/.dotfiles"
 EXCLUDES="README.md LICENSE rcrc"
-SYMLINK_DIRS="vim"
+SYMLINK_DIRS="vim scripts"
 COPY_ALWAYS=""

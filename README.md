@@ -26,3 +26,8 @@ Getting Started
         lsrc
 
 * Add any new dotfiles to RCM using the [`mkrc`](houghtbot.github.io/rcm/mkrc.1.html) command
+
+Installed
+---------
+
+* dir_colors from [Nord dircolors](https://github.com/arcticicestudio/nord-dircolors)

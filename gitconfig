@@ -1,3 +1,9 @@
 [user]
 	name = Clarence Bakirtzidis
 	email = clarenceb@gmail.com
+[init]
+	defaultBranch = main
+[credential]
+	helper = store
+[core]
+	autocrlf = input

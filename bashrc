@@ -10,14 +10,14 @@ esac
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-HISTCONTROL=ignoreboth
+HISTCONTROL=ignoredups:erasedups
 
 # append to the history file, don't overwrite it
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=20000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -26,6 +26,9 @@ shopt -s checkwinsize
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
+
+# Save and reload the history after each command finishes
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -121,9 +124,15 @@ fi
 
 # Paths
 export PATH=$HOME/.tools:$PATH
+export PATH=$PATH:/opt/go/bin
+export GOPATH=/mnt/c/Users/clbakirt/dev/go
+export PATH=$GOPATH/bin:$PATH
+export PATH=$PATH:$HOME/.linkerd2/bin
 
 # Aliases
 alias k="kubectl"
+alias kg="kubectl get"
+alias h="history"
 
 # Dir Colors
 # https://github.com/arcticicestudio/nord-dircolors
@@ -138,6 +147,56 @@ KUBE_PS1_SYMBOL_USE_IMG=true
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWCOLORHINTS=1
 GIT_PS1_SHOWUPSTREAM="auto"
-# PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$
-PS1='$(kube_ps1)$(__git_ps1 " (\[\033[0;33m\]branch:\[\033[0m\] %s)")\n\[\033[32m\]\u@\h\[\033[00m\]:\[\033[33m\]\w\[\033[00m\]\$ '
+
+# Custom Prompt
+#PS1='$(kube_ps1)$(__git_ps1 " (\[\033[0;33m\]branch:\[\033[0m\] %s)")\n\[\033[32m\]\u@\h\[\033[00m\]:\[\033[33m\]\w\[\033[00m\]\$ '
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/clarence/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/clarence/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/clarence/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/clarence/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+
+complete -C /usr/bin/terraform terraform
+
+# Node Version Manager (NVM)
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+# Java
+JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
+
+# Dapr
+export PATH=$PATH:/home/clarence/.dapr/bin
+
+# Flux CD
+. <(flux completion bash)
+
+# Dotnet (script install)
+export PATH=$HOME/.dotnet:$PATH
+
+# OSM
+export OSM_CONFIG=$HOME/.osm/config.yaml
+
+# Binaries in HOME
+export PATH=$HOME/bin:$PATH
+
+# VScode
+alias icode="\"/mnt/c/Users/clbakirt/AppData/Local/Programs/Microsoft VS Code Insiders/Code - Insiders.exe\""
+
+. "$HOME/.cargo/env"
+
+# OhMyPosh Prompt anf theme
+eval "$(/home/linuxbrew/.linuxbrew/bin/oh-my-posh init bash --config  ~/.ohmyposh/themes/jandedobbeleer.omp.json)"
 
